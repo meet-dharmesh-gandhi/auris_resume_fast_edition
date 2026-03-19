@@ -474,6 +474,8 @@ button:disabled {
     font-size: calc(12px * var(--resume-scale));
     background: #b0b0b0;
     color: black;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 
 .resume table {
