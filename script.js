@@ -106,7 +106,7 @@ function escapeHtml(value) {
 function linkify(value) {
   const text = escapeHtml(value);
   const markdownLinks = [];
-  const markdownRegex = /\[([^\]]+)\]\(((?:https?:\/\/|www\.)[^\s)]+)\)/gi;
+  const markdownRegex = /\[([^\]]+)\]\(([^)]+)\)/gi;
   const urlRegex = /((?:https?:\/\/|www\.)[^\s<]+)/gi;
 
   let processed = text.replace(markdownRegex, (_, label, url) => {
