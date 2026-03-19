@@ -639,22 +639,24 @@ function render() {
     .join("");
 
   const porRows = porSorted
-    .map((item) =>
-      pairSection(
-        "Positions of Responsibility",
-        `<strong>${linkify(item.title || "")}</strong><br>${linkify(item.description || "")}`,
-        item.date || "",
-      ),
+    .map(
+      (item) => `
+    <tr>
+      <td style="width:86%"><strong>${linkify(item.title || "")}</strong><br>${linkify(item.description || "")}</td>
+      <td style="width:14%">${linkify(item.date || "")}</td>
+    </tr>
+  `,
     )
     .join("");
 
   const extraRows = extraSorted
-    .map((item) =>
-      pairSection(
-        "Extra Curricular Activities",
-        `<strong>${linkify(item.title || "")}</strong><br>${linkify(item.description || "")}`,
-        item.date || "",
-      ),
+    .map(
+      (item) => `
+    <tr>
+      <td style="width:86%"><strong>${linkify(item.title || "")}</strong><br>${linkify(item.description || "")}</td>
+      <td style="width:14%">${linkify(item.date || "")}</td>
+    </tr>
+  `,
     )
     .join("");
 
@@ -789,8 +791,8 @@ function render() {
     ${v.projects ? optionalSection("Projects", hasProjects ? projectRows : "") : ""}
     ${v.certifications ? optionalSection("Certifications", hasCertifications ? `<table>${certificationRows}</table>` : "") : ""}
 
-    ${v.por && hasPor ? porRows : ""}
-    ${v.extra && hasExtra ? extraRows : ""}
+    ${v.por && hasPor ? optionalSection("Positions of Responsibility", `<table>${porRows}</table>`) : ""}
+    ${v.extra && hasExtra ? optionalSection("Extra Curricular Activities", `<table>${extraRows}</table>`) : ""}
     ${v.co && hasCo ? optionalSection("Co-Curricular Activities", `<table>${coRows}</table>`) : ""}
 
     ${
