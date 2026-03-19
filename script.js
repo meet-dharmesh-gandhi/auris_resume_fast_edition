@@ -575,7 +575,7 @@ function render() {
     .map(
       (a) => `
     <tr>
-      <td style="width:86%"><strong>${linkify(a.title || "")}</strong>${a.description ? `<br>${linkify(a.description)}` : ""}</td>
+      <td style="width:86%"><strong>• ${linkify(a.title || "")}</strong>${a.description ? `<br>${linkify(a.description)}` : ""}</td>
       <td style="width:14%">${linkify(a.date || "")}</td>
     </tr>
   `,
@@ -774,7 +774,7 @@ function render() {
         : ""
     }
 
-    ${v.achievements ? optionalSection("Achievements and Accomplishments", hasAchievements ? `<table>${achievementRows}</table>` : "") : ""}
+    ${v.achievements ? optionalSection("Achievements and Accomplishments", hasAchievements ? `<table class="no-inner-border">${achievementRows}</table>` : "") : ""}
 
     ${
       v.work && hasWork

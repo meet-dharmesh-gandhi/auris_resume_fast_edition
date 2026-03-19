@@ -75,7 +75,7 @@ body {
 }
 
 .editor h1,
-.preview-panel > h2 {
+.preview-panel>h2 {
     margin: 0;
     font-family: "Poppins", "Inter", sans-serif;
     letter-spacing: 0.01em;
@@ -86,7 +86,7 @@ body {
     font-size: 1.32rem;
 }
 
-.preview-panel > h2 {
+.preview-panel>h2 {
     font-size: 1.05rem;
     margin-bottom: var(--space-2);
     padding-bottom: var(--space-1);
@@ -237,7 +237,7 @@ body {
     border-radius: 12px;
 }
 
-.group.collapsed > :not(h2):not(.group-head) {
+.group.collapsed> :not(h2):not(.group-head) {
     display: none;
 }
 
@@ -316,11 +316,9 @@ button.primary {
 }
 
 button.primary:hover {
-    background: linear-gradient(
-        180deg,
-        var(--primary-hover),
-        var(--primary-active)
-    );
+    background: linear-gradient(180deg,
+            var(--primary-hover),
+            var(--primary-active));
     border-color: var(--primary-active);
 }
 
@@ -468,13 +466,14 @@ button:disabled {
 .section-title {
     margin: 10px 0 0;
     padding: 4px 8px;
-    border: 1px solid #2f3642;
+    border: 1px solid rgba(128, 128, 128, 0.627);
     font-family: "Poppins", "Inter", sans-serif;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.03em;
     font-size: calc(12px * var(--resume-scale));
-    background: #fbfcff;
+    background: #b0b0b0;
+    color: black;
 }
 
 .resume table {
@@ -487,6 +486,16 @@ button:disabled {
     border: 1px solid #2f3642;
     padding: 3px 6px;
     vertical-align: top;
+}
+
+.resume table.no-inner-border {
+    border: 1px solid #2f3642;
+}
+
+.resume table.no-inner-border td,
+.resume table.no-inner-border th {
+    border: none;
+    padding: 3px 6px;
 }
 
 .resume th {
@@ -725,7 +734,7 @@ button:disabled {
     flex-shrink: 0;
 }
 
-details[open] > .import-ai-summary::before {
+details[open]>.import-ai-summary::before {
     transform: rotate(90deg);
 }
 
@@ -809,6 +818,7 @@ details[open] > .import-ai-summary::before {
 }
 
 @media print {
+
     html,
     body {
         margin: 0;
@@ -820,7 +830,7 @@ details[open] > .import-ai-summary::before {
         display: none;
     }
 
-    .preview-panel > h2 {
+    .preview-panel>h2 {
         display: none;
     }
 
