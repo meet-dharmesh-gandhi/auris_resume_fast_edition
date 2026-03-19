@@ -412,7 +412,7 @@ button:disabled {
     width: min(100%, 210mm);
     min-height: 297mm;
     position: relative;
-    padding: var(--space-3);
+    padding: var(--space-1) var(--space-3) var(--space-3);
     border: 1px solid var(--line-strong);
     border-radius: 14px;
     background: #ffffff;
@@ -464,8 +464,8 @@ button:disabled {
 }
 
 .section-title {
-    margin: 10px 0 0;
-    padding: 4px 8px;
+    margin: 6px 0 0;
+    padding: 2px 8px;
     border: 1px solid rgba(128, 128, 128, 0.627);
     font-family: "Poppins", "Inter", sans-serif;
     font-weight: 600;

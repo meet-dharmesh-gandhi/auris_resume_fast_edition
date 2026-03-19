@@ -632,7 +632,7 @@ function render() {
       <td style="width:38%"><strong>${linkify(c.name || "")}</strong></td>
       <td style="width:28%">${linkify(c.issuer || "")}</td>
       <td style="width:14%">${linkify(c.date || "")}</td>
-      <td>${c.url ? `<a href="${safe(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.url)}</a>` : ""}</td>
+      <td>${c.url ? (c.url.includes('[') ? linkify(c.url) : `<a href="${safe(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.url)}</a>`) : ""}</td>
     </tr>
   `,
     )
