@@ -103,6 +103,15 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+function toBoolean(value, fallback = true) {
+  if (typeof value === "boolean") return value;
+  if (value == null || value === "") return fallback;
+  const normalized = String(value).trim().toLowerCase();
+  if (["true", "1", "yes", "on"].includes(normalized)) return true;
+  if (["false", "0", "no", "off"].includes(normalized)) return false;
+  return fallback;
+}
+
 function linkify(value) {
   const text = escapeHtml(value);
   const markdownLinks = [];
@@ -139,7 +148,46 @@ function tel(phone) {
 }
 
 function hasAny(value) {
-  return Object.values(value || {}).some((v) => String(v || "").trim());
+  return Object.entries(value || {}).some(([key, v]) => {
+    if (key.startsWith("show_")) return false;
+    return String(v || "").trim();
+  });
+}
+
+function splitTechSkillLine(text) {
+  const raw = String(text || "").trim();
+  if (!raw) return { category: "", items: "" };
+  const match = raw.match(/^([^:]{2,80})\s*:\s*(.+)$/);
+  if (match) {
+    return { category: match[1].trim(), items: match[2].trim() };
+  }
+  return { category: "", items: raw };
+}
+
+function normalizeTechSkillItem(item) {
+  const row = item && typeof item === "object" ? item : {};
+  const fromText = splitTechSkillLine(row.text || "");
+  const category = String(
+    row.category ||
+      row.label ||
+      row.heading ||
+      row.type ||
+      fromText.category ||
+      "",
+  ).trim();
+  const items = String(
+    row.items || row.skills || row.value || fromText.items || "",
+  ).trim();
+
+  return {
+    category,
+    items,
+    show_techskills_category: toBoolean(
+      row.show_techskills_category,
+      Boolean(category),
+    ),
+    show_techskills_items: toBoolean(row.show_techskills_items, Boolean(items)),
+  };
 }
 
 function isFirebaseConfigured() {
@@ -398,7 +446,12 @@ function addItem(section, values = {}) {
     .content.firstElementChild.cloneNode(true);
 
   tpl.querySelectorAll("input, textarea").forEach((el) => {
-    el.value = values[el.name] || "";
+    if (el.type === "checkbox") {
+      const fallback = el.defaultChecked;
+      el.checked = toBoolean(values[el.name], fallback);
+    } else {
+      el.value = values[el.name] || "";
+    }
     el.addEventListener("input", sync);
     el.addEventListener("change", sync);
   });
@@ -418,7 +471,11 @@ function collectList(section) {
     .map((card) => {
       const row = {};
       card.querySelectorAll("input, textarea").forEach((el) => {
-        row[el.name] = el.value.trim();
+        if (el.type === "checkbox") {
+          row[el.name] = el.checked;
+        } else {
+          row[el.name] = el.value.trim();
+        }
       });
       return row;
     })
@@ -632,7 +689,7 @@ function render() {
       <td style="width:38%"><strong>${linkify(c.name || "")}</strong></td>
       <td style="width:28%">${linkify(c.issuer || "")}</td>
       <td style="width:14%">${linkify(c.date || "")}</td>
-      <td>${c.url ? (c.url.includes('[') ? linkify(c.url) : `<a href="${safe(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.url)}</a>`) : ""}</td>
+      <td>${c.url ? (c.url.includes("[") ? linkify(c.url) : `<a href="${safe(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.url)}</a>`) : ""}</td>
     </tr>
   `,
     )
@@ -683,9 +740,19 @@ function render() {
     .join("");
 
   const techSkillRows = data.techSkills
-    .map((item) => String(item.text || "").trim())
+    .map((item) => normalizeTechSkillItem(item))
+    .map((item) => {
+      const showCategory = toBoolean(item.show_techskills_category, true);
+      const showItems = toBoolean(item.show_techskills_items, true);
+      const category = showCategory ? escapeHtml(item.category || "") : "";
+      const items = showItems ? linkify(item.items || "") : "";
+      if (!category && !items) return "";
+      if (category && items)
+        return `<tr><td><strong>${category}:</strong> ${items}</td></tr>`;
+      if (category) return `<tr><td><strong>${category}</strong></td></tr>`;
+      return `<tr><td>${items}</td></tr>`;
+    })
     .filter(Boolean)
-    .map((text) => `<div>• ${linkify(text)}</div>`)
     .join("");
 
   const personalRows = data.personal
@@ -718,9 +785,7 @@ function render() {
   const hasPor = porSorted.length > 0;
   const hasExtra = extraSorted.length > 0;
   const hasCo = coSorted.length > 0;
-  const hasSkills = data.techSkills.some((item) =>
-    String(item.text || "").trim(),
-  );
+  const hasSkills = Boolean(techSkillRows);
   const hasLinks = data.links.length > 0;
   const hasPersonal = data.personal.some((item) => hasAny(item));
 
@@ -799,7 +864,7 @@ function render() {
       v.skills && hasSkills
         ? `
       ${sectionTitle("Technical Skills")}
-      <div class="bullet">${techSkillRows}</div>
+      <table>${techSkillRows}</table>
     `
         : ""
     }
@@ -863,6 +928,9 @@ function load(payload) {
   ) {
     data.techSkills = [{ text: payload.skills }];
   }
+  data.techSkills = (Array.isArray(data.techSkills) ? data.techSkills : [])
+    .map((row) => normalizeTechSkillItem(row))
+    .filter((row) => hasAny(row));
   if (
     (!Array.isArray(payload?.personal) || payload.personal.length === 0) &&
     hasAny({
@@ -1675,7 +1743,7 @@ function parseProjects(text) {
     .filter((e) => e.name);
 }
 
-/** Parse skills section into Auris techSkills entries (one line per category) */
+/** Parse skills section into Auris techSkills entries (category + items). */
 function parseSkills(text) {
   const lines = text
     .split("\n")
@@ -1689,22 +1757,25 @@ function parseSkills(text) {
     if (!cleaned) continue;
     // Skip lines that are just a section header repeated
     if (/^(technical\s*skills?|skills?|technologies)$/i.test(cleaned)) continue;
-    result.push({ text: cleaned });
+    const { category, items } = splitTechSkillLine(cleaned);
+    result.push({
+      category,
+      items,
+      show_techskills_category: Boolean(category),
+      show_techskills_items: Boolean(items),
+    });
   }
 
-  // If we got only one long comma-separated blob, try to split it into categories
-  if (result.length === 1 && result[0].text.includes(",")) {
-    const raw = result[0].text;
-    // If it has "Label: items" pattern, keep as-is (already categorised)
-    if (/\w+\s*:/.test(raw)) return result;
-    // Otherwise split on common delimiters between logical groups
-    // e.g. "C++, Go | React, Node.js | Docker, AWS"
-    if (/[|;]/.test(raw)) {
-      return raw
-        .split(/[|;]/)
-        .map((s) => ({ text: s.trim() }))
-        .filter((e) => e.text);
-    }
+  // If we got one unlabeled blob split by | or ;, break into separate rows.
+  if (
+    result.length === 1 &&
+    !result[0].category &&
+    /[|;]/.test(result[0].items || "")
+  ) {
+    return result[0].items
+      .split(/[|;]/)
+      .map((s) => normalizeTechSkillItem({ items: s.trim() }))
+      .filter((row) => hasAny(row));
   }
 
   return result;
@@ -2006,7 +2077,7 @@ The JSON must match this exact schema (all fields optional, use empty arrays [] 
   "por": [{ "title": "string", "date": "string", "description": "string" }],
   "extra": [{ "title": "string", "date": "string", "description": "string" }],
   "co": [{ "title": "string", "date": "string", "description": "string" }],
-  "techSkills": [{ "text": "string — e.g. 'Languages: Python, Java'" }],
+  "techSkills": [{ "category": "string — e.g. 'Languages'", "items": "string — e.g. 'Python, Java'" }],
   "expertise": [{ "text": "string — area of interest or domain" }],
   "links": [{ "platform": "string", "url": "string" }],
   "personal": [{ "email": "string", "phone": "string", "location": "string" }]
@@ -2014,7 +2085,7 @@ The JSON must match this exact schema (all fields optional, use empty arrays [] 
 
 Rules:
 - Classify short-term roles (< 6 months or labelled intern/trainee) as internships, full-time roles as work.
-- For techSkills, group related skills into single lines like "Frameworks: React, Node.js".
+- For techSkills, return category + items rows (e.g. category "Framework / Libraries", items "React, Node.js").
 - Dates should be kept in their original format (e.g. "Jun'23 - Aug'23" or "2021 - Present").
 - Do not invent data — if something is not in the resume, omit or leave as empty string.
 - Return ONLY the JSON object, nothing else.`;

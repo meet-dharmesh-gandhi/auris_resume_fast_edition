@@ -1035,11 +1035,30 @@
         <template id="techSkillsTemplate">
             <div class="item-card">
                 <label
-                    >Skill Line
+                    ><input
+                        type="checkbox"
+                        name="show_techskills_category"
+                        class="subfield-toggle"
+                        checked />
+                    Skill Category
                     <input
-                        name="text"
-                        placeholder="e.g., Frameworks: React, Next.js, Node.js"
+                        name="category"
+                        placeholder="e.g., Languages / Framework / Tools"
                 /></label>
+                <label
+                    ><input
+                        type="checkbox"
+                        name="show_techskills_items"
+                        class="subfield-toggle"
+                        checked
+                    />
+                    Skills
+                    <textarea
+                        name="items"
+                        rows="2"
+                        placeholder="e.g., Python, Java, TypeScript, Go"
+                    ></textarea>
+                </label>
                 <button type="button" class="remove">Remove</button>
             </div>
         </template>
