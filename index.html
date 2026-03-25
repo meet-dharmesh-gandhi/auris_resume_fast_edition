@@ -1,1138 +1,956 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Auris style resume builder (but faster!)</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="styles.css" />
-    </head>
-    <body>
-        <main class="app">
-            <section class="panel editor">
-                <h1>Auris style resume builder (But faster!)</h1>
-                <!-- <p class="muted">This builder now follows your uploaded resume template format.</p> -->
-                <div class="community-links">
-                    <a
-                        class="community-link"
-                        href="https://github.com/Jay-1409/auris_resume_fast_edition"
-                        target="_blank"
-                        rel="noopener"
-                        >Contribute</a
-                    >
-                    <a
-                        class="community-link"
-                        href="https://github.com/Jay-1409/auris_resume_fast_edition/issues/new"
-                        target="_blank"
-                        rel="noopener"
-                        >Report Issue</a
-                    >
-                    <button
-                        type="button"
-                        class="community-link"
-                        id="openInstructionsBtn"
-                    >
-                        Instructions
-                    </button>
-                    <button
-                        type="button"
-                        class="community-link"
-                        id="openImportBtn"
-                    >
-                        Import Resume
-                    </button>
-                </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Auris style resume builder (but faster!)</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<main class="app">
+			<section class="panel editor">
+				<h1>Auris style resume builder (But faster!)</h1>
+				<!-- <p class="muted">This builder now follows your uploaded resume template format.</p> -->
+				<div class="community-links">
+					<a
+						class="community-link"
+						href="https://github.com/Jay-1409/auris_resume_fast_edition"
+						target="_blank"
+						rel="noopener"
+						>Contribute</a
+					>
+					<a
+						class="community-link"
+						href="https://github.com/Jay-1409/auris_resume_fast_edition/issues/new"
+						target="_blank"
+						rel="noopener"
+						>Report Issue</a
+					>
+					<button type="button" class="community-link" id="openInstructionsBtn">
+						Instructions
+					</button>
+					<button type="button" class="community-link" id="openImportBtn">
+						Import Resume
+					</button>
+				</div>
 
-                <form id="resumeForm">
-                    <div class="group">
-                        <h2>Header</h2>
-                        <label
-                            >Full Name
-                            <input name="fullName" placeholder="Your Full Name"
-                        /></label>
-                        <label
-                            >Tagline
-                            <input
-                                name="tagline"
-                                placeholder="Your professional headline"
-                        /></label>
-                        <label
-                            >LinkedIn Logo URL
-                            <input
-                                name="linkedinUrl"
-                                placeholder="https://www.linkedin.com/in/your-id/"
-                        /></label>
-                    </div>
+				<form id="resumeForm">
+					<div class="group">
+						<h2>Header</h2>
+						<label
+							>Full Name <input name="fullName" placeholder="Your Full Name"
+						/></label>
+						<label
+							>Tagline <input name="tagline" placeholder="Your professional headline"
+						/></label>
+						<label
+							>LinkedIn Logo URL
+							<input
+								name="linkedinUrl"
+								placeholder="https://www.linkedin.com/in/your-id/"
+						/></label>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Education</h2>
-                            <button type="button" data-add="education">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="educationList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Education</h2>
+							<button type="button" data-add="education">+ Add</button>
+						</div>
+						<div id="educationList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Expertise/Area of Interest</h2>
-                            <button type="button" data-add="expertise">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="expertiseList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Expertise/Area of Interest</h2>
+							<button type="button" data-add="expertise">+ Add</button>
+						</div>
+						<div id="expertiseList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Achievements and Accomplishments</h2>
-                            <button type="button" data-add="achievements">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="achievementsList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Achievements and Accomplishments</h2>
+							<button type="button" data-add="achievements">+ Add</button>
+						</div>
+						<div id="achievementsList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Work Experience</h2>
-                            <button type="button" data-add="work">+ Add</button>
-                        </div>
-                        <div id="workList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Work Experience</h2>
+							<button type="button" data-add="work">+ Add</button>
+						</div>
+						<div id="workList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Internships</h2>
-                            <button type="button" data-add="internships">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="internshipsList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Internships</h2>
+							<button type="button" data-add="internships">+ Add</button>
+						</div>
+						<div id="internshipsList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Projects</h2>
-                            <button type="button" data-add="projects">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="projectsList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Projects</h2>
+							<button type="button" data-add="projects">+ Add</button>
+						</div>
+						<div id="projectsList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Certifications</h2>
-                            <button type="button" data-add="certifications">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="certificationsList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Certifications</h2>
+							<button type="button" data-add="certifications">+ Add</button>
+						</div>
+						<div id="certificationsList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Position of Responsibility</h2>
-                            <button type="button" data-add="por">+ Add</button>
-                        </div>
-                        <div id="porList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Position of Responsibility</h2>
+							<button type="button" data-add="por">+ Add</button>
+						</div>
+						<div id="porList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Extra Curricular Activities</h2>
-                            <button type="button" data-add="extra">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="extraList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Extra Curricular Activities</h2>
+							<button type="button" data-add="extra">+ Add</button>
+						</div>
+						<div id="extraList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Co-Curricular Activities</h2>
-                            <button type="button" data-add="co">+ Add</button>
-                        </div>
-                        <div id="coList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Co-Curricular Activities</h2>
+							<button type="button" data-add="co">+ Add</button>
+						</div>
+						<div id="coList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Technical Skills</h2>
-                            <button type="button" data-add="techSkills">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="techSkillsList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Technical Skills</h2>
+							<button type="button" data-add="techSkills">+ Add</button>
+						</div>
+						<div id="techSkillsList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Online Professional Presence</h2>
-                            <button type="button" data-add="links">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="linksList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Online Professional Presence</h2>
+							<button type="button" data-add="links">+ Add</button>
+						</div>
+						<div id="linksList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <div class="group-head">
-                            <h2>Personal Details</h2>
-                            <button type="button" data-add="personal">
-                                + Add
-                            </button>
-                        </div>
-                        <div id="personalList" class="item-list"></div>
-                    </div>
+					<div class="group">
+						<div class="group-head">
+							<h2>Personal Details</h2>
+							<button type="button" data-add="personal">+ Add</button>
+						</div>
+						<div id="personalList" class="item-list"></div>
+					</div>
 
-                    <div class="group">
-                        <h2>Layout Controls</h2>
-                        <input type="hidden" name="fontScale" value="1" />
-                        <div class="font-controls">
-                            <button type="button" id="fontDecrease">A-</button>
-                            <button type="button" id="fontReset">Reset</button>
-                            <button type="button" id="fontIncrease">A+</button>
-                            <span id="fontScaleValue" class="font-scale-value"
-                                >100%</span
-                            >
-                        </div>
-                    </div>
+					<div class="group">
+						<h2>Layout Controls</h2>
+						<input type="hidden" name="fontScale" value="1" />
+						<div class="font-controls">
+							<button type="button" id="fontDecrease">A-</button>
+							<button type="button" id="fontReset">Reset</button>
+							<button type="button" id="fontIncrease">A+</button>
+							<span id="fontScaleValue" class="font-scale-value">100%</span>
+						</div>
+					</div>
 
-                    <div class="group">
-                        <h2>Section Visibility</h2>
-                        <div class="section-toggles">
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_header"
-                                    checked
-                                />
-                                Header</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_linkedin_logo"
-                                    checked
-                                />
-                                LinkedIn Logo</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_education"
-                                    checked
-                                />
-                                Education</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_expertise"
-                                    checked
-                                />
-                                Expertise</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_achievements"
-                                    checked
-                                />
-                                Achievements</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_work"
-                                    checked
-                                />
-                                Work Experience</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_internships"
-                                    checked
-                                />
-                                Internships</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_projects"
-                                    checked
-                                />
-                                Projects</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_certifications"
-                                    checked
-                                />
-                                Certifications</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_por"
-                                    checked
-                                />
-                                Positions of Responsibility</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_extra"
-                                    checked
-                                />
-                                Extra Curricular</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_co"
-                                    checked
-                                />
-                                Co-Curricular</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_skills"
-                                    checked
-                                />
-                                Technical Skills</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_links"
-                                    checked
-                                />
-                                Online Presence</label
-                            >
-                            <label
-                                ><input
-                                    type="checkbox"
-                                    name="show_personal"
-                                    checked
-                                />
-                                Personal Details</label
-                            >
-                        </div>
-                    </div>
+					<div class="group">
+						<h2>Section Visibility</h2>
+						<div class="section-toggles">
+							<label
+								><input type="checkbox" name="show_header" checked /> Header</label
+							>
+							<label
+								><input type="checkbox" name="show_linkedin_logo" checked />
+								LinkedIn Logo</label
+							>
+							<label
+								><input type="checkbox" name="show_education" checked />
+								Education</label
+							>
+							<label
+								><input type="checkbox" name="show_expertise" checked />
+								Expertise</label
+							>
+							<label
+								><input type="checkbox" name="show_achievements" checked />
+								Achievements</label
+							>
+							<label
+								><input type="checkbox" name="show_work" checked /> Work
+								Experience</label
+							>
+							<label
+								><input type="checkbox" name="show_internships" checked />
+								Internships</label
+							>
+							<label
+								><input type="checkbox" name="show_projects" checked />
+								Projects</label
+							>
+							<label
+								><input type="checkbox" name="show_certifications" checked />
+								Certifications</label
+							>
+							<label
+								><input type="checkbox" name="show_por" checked /> Positions of
+								Responsibility</label
+							>
+							<label
+								><input type="checkbox" name="show_extra" checked /> Extra
+								Curricular</label
+							>
+							<label
+								><input type="checkbox" name="show_co" checked />
+								Co-Curricular</label
+							>
+							<label
+								><input type="checkbox" name="show_skills" checked /> Technical
+								Skills</label
+							>
+							<label
+								><input type="checkbox" name="show_links" checked /> Online
+								Presence</label
+							>
+							<label
+								><input type="checkbox" name="show_personal" checked /> Personal
+								Details</label
+							>
+						</div>
+					</div>
 
-                    <div class="actions">
-                        <span id="authStatus" class="auth-status"
-                            >Cloud: Not configured</span
-                        >
-                        <button type="button" id="signInBtn">
-                            Sign in with Google
-                        </button>
-                        <button type="button" id="signOutBtn">Sign out</button>
-                        <button type="button" id="cloudSaveBtn">
-                            Save to Cloud
-                        </button>
-                        <button type="button" id="cloudLoadBtn">
-                            Load from Cloud
-                        </button>
-                        <button type="button" id="downloadJson">
-                            Download Data
-                        </button>
-                        <label class="file-pick"
-                            >Load Data
-                            <input
-                                type="file"
-                                id="uploadJson"
-                                accept="application/json"
-                        /></label>
-                        <button type="button" id="importResumeBtn">
-                            Import Resume
-                        </button>
-                        <button type="button" id="printResume" class="primary">
-                            Print / Save PDF
-                        </button>
-                    </div>
-                </form>
-            </section>
+					<div class="actions">
+						<span id="authStatus" class="auth-status">Cloud: Not configured</span>
+						<button type="button" id="signInBtn">Sign in with Google</button>
+						<button type="button" id="signOutBtn">Sign out</button>
+						<button type="button" id="cloudSaveBtn">Save to Cloud</button>
+						<button type="button" id="cloudLoadBtn">Load from Cloud</button>
+						<button type="button" id="downloadJson">Download Data</button>
+						<label class="file-pick"
+							>Load Data <input type="file" id="uploadJson" accept="application/json"
+						/></label>
+						<button type="button" id="importResumeBtn">Import Resume</button>
+						<button type="button" id="printResume" class="primary">
+							Print / Save PDF
+						</button>
+					</div>
+				</form>
+			</section>
 
-            <section class="panel preview-panel">
-                <h2>Preview</h2>
-                <article id="resumePreview" class="resume"></article>
-            </section>
-        </main>
+			<section class="panel preview-panel">
+				<h2>Preview</h2>
+				<article id="resumePreview" class="resume"></article>
+			</section>
+		</main>
 
-        <!-- ═══════════════════════════════════════════════════════════
+		<!-- ═══════════════════════════════════════════════════════════
          IMPORT RESUME MODAL
          ═══════════════════════════════════════════════════════════ -->
-        <div id="importModal" class="modal" aria-hidden="true" inert>
-            <div
-                class="modal-card import-modal-card"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="importModalTitle"
-            >
-                <div class="modal-head">
-                    <h2 id="importModalTitle">Import Resume</h2>
-                    <button type="button" id="closeImportBtn">Close</button>
-                </div>
+		<div id="importModal" class="modal" aria-hidden="true" inert>
+			<div
+				class="modal-card import-modal-card"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="importModalTitle"
+			>
+				<div class="modal-head">
+					<h2 id="importModalTitle">Import Resume</h2>
+					<button type="button" id="closeImportBtn">Close</button>
+				</div>
 
-                <div class="modal-body">
-                    <p>
-                        Paste or upload your existing resume. The builder will
-                        extract its content and convert it into the Auris
-                        format. Review and adjust the results in the editor
-                        afterwards.
-                    </p>
+				<div class="modal-body">
+					<p>
+						Paste or upload your existing resume. The builder will extract its content
+						and convert it into the Auris format. Review and adjust the results in the
+						editor afterwards.
+					</p>
 
-                    <!-- Step 1: input method tabs -->
-                    <div class="import-tabs" role="tablist">
-                        <button
-                            type="button"
-                            class="import-tab active"
-                            id="tabPaste"
-                            role="tab"
-                            aria-selected="true"
-                            aria-controls="panePaste"
-                        >
-                            Paste Text
-                        </button>
-                        <button
-                            type="button"
-                            class="import-tab"
-                            id="tabPdf"
-                            role="tab"
-                            aria-selected="false"
-                            aria-controls="panePdf"
-                        >
-                            Upload PDF
-                        </button>
-                    </div>
+					<!-- Step 1: input method tabs -->
+					<div class="import-tabs" role="tablist">
+						<button
+							type="button"
+							class="import-tab active"
+							id="tabPaste"
+							role="tab"
+							aria-selected="true"
+							aria-controls="panePaste"
+						>
+							Paste Text
+						</button>
+						<button
+							type="button"
+							class="import-tab"
+							id="tabPdf"
+							role="tab"
+							aria-selected="false"
+							aria-controls="panePdf"
+						>
+							Upload PDF
+						</button>
+					</div>
 
-                    <!-- Paste tab -->
-                    <div
-                        id="panePaste"
-                        class="import-pane active"
-                        role="tabpanel"
-                        aria-labelledby="tabPaste"
-                    >
-                        <label class="import-label" for="importTextarea"
-                            >Paste your resume text below:</label
-                        >
-                        <textarea
-                            id="importTextarea"
-                            class="import-textarea"
-                            rows="14"
-                            placeholder="Paste the full text of your resume here…"
-                        ></textarea>
-                    </div>
+					<!-- Paste tab -->
+					<div
+						id="panePaste"
+						class="import-pane active"
+						role="tabpanel"
+						aria-labelledby="tabPaste"
+					>
+						<label class="import-label" for="importTextarea"
+							>Paste your resume text below:</label
+						>
+						<textarea
+							id="importTextarea"
+							class="import-textarea"
+							rows="14"
+							placeholder="Paste the full text of your resume here…"
+						></textarea>
+					</div>
 
-                    <!-- PDF tab -->
-                    <div
-                        id="panePdf"
-                        class="import-pane"
-                        role="tabpanel"
-                        aria-labelledby="tabPdf"
-                        hidden
-                    >
-                        <label class="import-label" for="importPdfFile"
-                            >Upload a PDF resume:</label
-                        >
-                        <label
-                            class="file-pick import-file-pick"
-                            id="importPdfLabel"
-                        >
-                            Choose PDF file
-                            <input
-                                type="file"
-                                id="importPdfFile"
-                                accept="application/pdf"
-                            />
-                        </label>
-                        <p id="pdfFileName" class="import-hint">
-                            No file selected.
-                        </p>
-                        <p class="import-hint">
-                            Text is extracted locally in your browser — nothing
-                            is uploaded to any server.
-                        </p>
-                    </div>
+					<!-- PDF tab -->
+					<div
+						id="panePdf"
+						class="import-pane"
+						role="tabpanel"
+						aria-labelledby="tabPdf"
+						hidden
+					>
+						<label class="import-label" for="importPdfFile">Upload a PDF resume:</label>
+						<label class="file-pick import-file-pick" id="importPdfLabel">
+							Choose PDF file
+							<input type="file" id="importPdfFile" accept="application/pdf" />
+						</label>
+						<p id="pdfFileName" class="import-hint">No file selected.</p>
+						<p class="import-hint">
+							Text is extracted locally in your browser — nothing is uploaded to any
+							server.
+						</p>
+					</div>
 
-                    <!-- AI-assist section -->
-                    <div class="import-ai-section">
-                        <details id="aiDetails">
-                            <summary class="import-ai-summary">
-                                <span
-                                    >AI-assisted parsing (optional — better
-                                    accuracy)</span
-                                >
-                            </summary>
-                            <div class="import-ai-body">
-                                <p class="import-hint">
-                                    Provide an OpenAI-compatible API key for
-                                    smarter extraction. Your key is used only
-                                    for this request and is never stored or sent
-                                    anywhere except the API endpoint you
-                                    specify.
-                                </p>
-                                <label class="import-label" for="aiApiKey"
-                                    >API Key</label
-                                >
-                                <input
-                                    type="password"
-                                    id="aiApiKey"
-                                    class="import-input"
-                                    placeholder="sk-…"
-                                    autocomplete="off"
-                                />
-                                <label class="import-label" for="aiEndpoint"
-                                    >API Endpoint</label
-                                >
-                                <input
-                                    type="url"
-                                    id="aiEndpoint"
-                                    class="import-input"
-                                    placeholder="https://api.openai.com/v1/chat/completions"
-                                    value="https://api.openai.com/v1/chat/completions"
-                                />
-                                <label class="import-label" for="aiModel"
-                                    >Model</label
-                                >
-                                <input
-                                    type="text"
-                                    id="aiModel"
-                                    class="import-input"
-                                    placeholder="gpt-4o-mini"
-                                    value="gpt-4o-mini"
-                                />
-                            </div>
-                        </details>
-                    </div>
+					<!-- AI-assist section -->
+					<div class="import-ai-section">
+						<details id="aiDetails">
+							<summary class="import-ai-summary">
+								<span>AI-assisted parsing (optional — better accuracy)</span>
+							</summary>
+							<div class="import-ai-body">
+								<p class="import-hint">
+									Provide an OpenAI-compatible API key for smarter extraction.
+									Your key is used only for this request and is never stored or
+									sent anywhere except the API endpoint you specify.
+								</p>
+								<label class="import-label" for="aiApiKey">API Key</label>
+								<input
+									type="password"
+									id="aiApiKey"
+									class="import-input"
+									placeholder="sk-…"
+									autocomplete="off"
+								/>
+								<label class="import-label" for="aiEndpoint">API Endpoint</label>
+								<input
+									type="url"
+									id="aiEndpoint"
+									class="import-input"
+									placeholder="https://api.openai.com/v1/chat/completions"
+									value="https://api.openai.com/v1/chat/completions"
+								/>
+								<label class="import-label" for="aiModel">Model</label>
+								<input
+									type="text"
+									id="aiModel"
+									class="import-input"
+									placeholder="gpt-4o-mini"
+									value="gpt-4o-mini"
+								/>
+							</div>
+						</details>
+					</div>
 
-                    <!-- Status / progress -->
-                    <div id="importStatus" class="import-status" hidden></div>
-                </div>
+					<!-- Status / progress -->
+					<div id="importStatus" class="import-status" hidden></div>
+				</div>
 
-                <div class="import-footer">
-                    <button type="button" id="runImportBtn" class="primary">
-                        Extract &amp; Import
-                    </button>
-                    <button type="button" id="closeImportBtn2">Cancel</button>
-                </div>
-            </div>
-        </div>
+				<div class="import-footer">
+					<button type="button" id="runImportBtn" class="primary">
+						Extract &amp; Import
+					</button>
+					<button type="button" id="closeImportBtn2">Cancel</button>
+				</div>
+			</div>
+		</div>
 
-        <div id="instructionsModal" class="modal" aria-hidden="true">
-            <div
-                class="modal-card"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="instructionsTitle"
-            >
-                <div class="modal-head">
-                    <h2 id="instructionsTitle">How To Use</h2>
-                    <button type="button" id="closeInstructionsBtn">
-                        Close
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <strong>1. Start editing:</strong> Click
-                        <code>Edit</code> on any section, then add entries with
-                        <code>+ Add</code>.
-                    </p>
-                    <p>
-                        <strong>2. Reorder by date:</strong> Entries are
-                        auto-sorted by date (latest first) in preview.
-                    </p>
-                    <p>
-                        <strong>3. Show/hide sections:</strong> Use
-                        <code>Section Visibility</code> toggles.
-                    </p>
-                    <p>
-                        <strong>4. Resize content:</strong> Use <code>A-</code>,
-                        <code>A+</code>, and <code>Reset</code> in Layout
-                        Controls.
-                    </p>
-                    <p>
-                        <strong>5. Add links:</strong> Paste URLs directly, or
-                        use <code>[label](https://...)</code> format for
-                        clickable text.
-                    </p>
-                    <p>
-                        <strong>6. Save local:</strong> Use
-                        <code>Download Data</code> for JSON backup and
-                        <code>Load Data</code> to restore.
-                    </p>
-                    <p>
-                        <strong>7. Save cloud:</strong> Sign in with Google,
-                        then use <code>Save to Cloud</code> and
-                        <code>Load from Cloud</code>.
-                    </p>
-                    <p>
-                        <strong>8. Print/PDF:</strong> Click
-                        <code>Print / Save PDF</code>. In print dialog, disable
-                        browser headers/footers for cleaner output.
-                    </p>
-                    <p>
-                        <strong>9. LinkedIn logo:</strong> Add your LinkedIn URL
-                        in Header to render clickable logo in resume top area.
-                    </p>
-                </div>
-            </div>
-        </div>
+		<div id="instructionsModal" class="modal" aria-hidden="true">
+			<div
+				class="modal-card"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="instructionsTitle"
+			>
+				<div class="modal-head">
+					<h2 id="instructionsTitle">How To Use</h2>
+					<button type="button" id="closeInstructionsBtn">Close</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						<strong>1. Start editing:</strong> Click <code>Edit</code> on any section,
+						then add entries with <code>+ Add</code>.
+					</p>
+					<p>
+						<strong>2. Reorder by date:</strong> Entries are auto-sorted by date (latest
+						first) in preview.
+					</p>
+					<p>
+						<strong>3. Show/hide sections:</strong> Use
+						<code>Section Visibility</code> toggles.
+					</p>
+					<p>
+						<strong>4. Resize content:</strong> Use <code>A-</code>, <code>A+</code>,
+						and <code>Reset</code> in Layout Controls.
+					</p>
+					<p>
+						<strong>5. Add links:</strong> Paste URLs directly, or use
+						<code>[label](https://...)</code> format for clickable text.
+					</p>
+					<p>
+						<strong>6. Save local:</strong> Use <code>Download Data</code> for JSON
+						backup and <code>Load Data</code> to restore.
+					</p>
+					<p>
+						<strong>7. Save cloud:</strong> Sign in with Google, then use
+						<code>Save to Cloud</code> and <code>Load from Cloud</code>.
+					</p>
+					<p>
+						<strong>8. Print/PDF:</strong> Click <code>Print / Save PDF</code>. In print
+						dialog, disable browser headers/footers for cleaner output.
+					</p>
+					<p>
+						<strong>9. LinkedIn logo:</strong> Add your LinkedIn URL in Header to render
+						clickable logo in resume top area.
+					</p>
+				</div>
+			</div>
+		</div>
 
-        <template id="educationTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_education_year"
-                        class="subfield-toggle"
-                        checked />
-                    Year <input name="year" placeholder="Year or status"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_education_degree"
-                        class="subfield-toggle"
-                        checked />
-                    Degree <input name="degree" placeholder="Degree / Program"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_education_board"
-                        class="subfield-toggle"
-                        checked />
-                    University/Board
-                    <input name="board" placeholder="University / Board"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_education_institute"
-                        class="subfield-toggle"
-                        checked />
-                    Institute
-                    <input name="institute" placeholder="Institute name"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_education_score"
-                        class="subfield-toggle"
-                        checked />
-                    CGPA/% <input name="score" placeholder="Score / CGPA / %"
-                /></label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="educationTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_education_year"
+						class="subfield-toggle"
+						checked />
+					Year <input name="year" placeholder="Year or status"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_education_degree"
+						class="subfield-toggle"
+						checked />
+					Degree <input name="degree" placeholder="Degree / Program"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_education_board"
+						class="subfield-toggle"
+						checked />
+					University/Board
+					<input name="board" placeholder="University / Board"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_education_institute"
+						class="subfield-toggle"
+						checked />
+					Institute
+					<input name="institute" placeholder="Institute name"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_education_score"
+						class="subfield-toggle"
+						checked />
+					CGPA/% <input name="score" placeholder="Score / CGPA / %"
+				/></label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="expertiseTemplate">
-            <div class="item-card">
-                <label
-                    >Area
-                    <input
-                        name="text"
-                        placeholder="e.g., Backend Development, System Design"
-                /></label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="expertiseTemplate">
+			<div class="item-card">
+				<label
+					>Area <input name="text" placeholder="e.g., Backend Development, System Design"
+				/></label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="workTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_work_title"
-                        class="subfield-toggle"
-                        checked />
-                    Organization/Title
-                    <input name="title" placeholder="Company / Organization"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_work_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Start - End"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_work_role"
-                        class="subfield-toggle"
-                        checked />
-                    Role <input name="role" placeholder="Your role"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_work_highlights"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Highlights (one per line)
-                    <textarea
-                        name="highlights"
-                        rows="3"
-                        placeholder="Impact and responsibilities"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="workTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_work_title"
+						class="subfield-toggle"
+						checked />
+					Organization/Title
+					<input name="title" placeholder="Company / Organization"
+				/></label>
+				<label
+					><input type="checkbox" name="show_work_date" class="subfield-toggle" checked />
+					Date <input name="date" placeholder="Start - End"
+				/></label>
+				<label
+					><input type="checkbox" name="show_work_role" class="subfield-toggle" checked />
+					Role <input name="role" placeholder="Your role"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_work_highlights"
+						class="subfield-toggle"
+						checked
+					/>
+					Highlights (one per line)
+					<textarea
+						name="highlights"
+						rows="3"
+						placeholder="Impact and responsibilities"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="projectsTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_type"
-                        class="subfield-toggle"
-                        checked />
-                    Project Type
-                    <input name="type" placeholder="Project category / type"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Start - End"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_name"
-                        class="subfield-toggle"
-                        checked />
-                    Project Name <input name="name" placeholder="Project name"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_summary"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Summary
-                    <textarea
-                        name="summary"
-                        rows="2"
-                        placeholder="Project summary"
-                    ></textarea>
-                </label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_skills"
-                        class="subfield-toggle"
-                        checked />
-                    Skills Used
-                    <input name="skills" placeholder="Tools / skills used"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_teamSize"
-                        class="subfield-toggle"
-                        checked />
-                    Team Size
-                    <input name="teamSize" placeholder="Number of contributors"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_projects_outcomes"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Key Outcomes
-                    <textarea
-                        name="outcomes"
-                        rows="2"
-                        placeholder="Outcomes / impact"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="projectsTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_type"
+						class="subfield-toggle"
+						checked />
+					Project Type
+					<input name="type" placeholder="Project category / type"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_date"
+						class="subfield-toggle"
+						checked />
+					Date <input name="date" placeholder="Start - End"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_name"
+						class="subfield-toggle"
+						checked />
+					Project Name <input name="name" placeholder="Project name"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_summary"
+						class="subfield-toggle"
+						checked
+					/>
+					Summary
+					<textarea name="summary" rows="2" placeholder="Project summary"></textarea>
+				</label>
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_skills"
+						class="subfield-toggle"
+						checked />
+					Skills Used
+					<input name="skills" placeholder="Tools / skills used"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_teamSize"
+						class="subfield-toggle"
+						checked />
+					Team Size
+					<input name="teamSize" placeholder="Number of contributors"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_projects_outcomes"
+						class="subfield-toggle"
+						checked
+					/>
+					Key Outcomes
+					<textarea name="outcomes" rows="2" placeholder="Outcomes / impact"></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="achievementsTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_achievements_title"
-                        class="subfield-toggle"
-                        checked />
-                    Title <input name="title" placeholder="Achievement title"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_achievements_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Oct'24"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_achievements_description"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Description
-                    <textarea
-                        name="description"
-                        rows="2"
-                        placeholder="What you achieved and impact"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="achievementsTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_achievements_title"
+						class="subfield-toggle"
+						checked />
+					Title <input name="title" placeholder="Achievement title"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_achievements_date"
+						class="subfield-toggle"
+						checked />
+					Date <input name="date" placeholder="Oct'24"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_achievements_description"
+						class="subfield-toggle"
+						checked
+					/>
+					Description
+					<textarea
+						name="description"
+						rows="2"
+						placeholder="What you achieved and impact"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="internshipsTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_internships_organization"
-                        class="subfield-toggle"
-                        checked />
-                    Organization
-                    <input
-                        name="organization"
-                        placeholder="Company / Organization"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_internships_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Jun'25 - Jul'25"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_internships_role"
-                        class="subfield-toggle"
-                        checked />
-                    Role <input name="role" placeholder="Backend Intern"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_internships_summary"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Summary
-                    <textarea
-                        name="summary"
-                        rows="2"
-                        placeholder="Internship scope and outcome"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="internshipsTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_internships_organization"
+						class="subfield-toggle"
+						checked />
+					Organization
+					<input name="organization" placeholder="Company / Organization"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_internships_date"
+						class="subfield-toggle"
+						checked />
+					Date <input name="date" placeholder="Jun'25 - Jul'25"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_internships_role"
+						class="subfield-toggle"
+						checked />
+					Role <input name="role" placeholder="Backend Intern"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_internships_summary"
+						class="subfield-toggle"
+						checked
+					/>
+					Summary
+					<textarea
+						name="summary"
+						rows="2"
+						placeholder="Internship scope and outcome"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="certificationsTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_certifications_name"
-                        class="subfield-toggle"
-                        checked />
-                    Name <input name="name" placeholder="Certification name"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_certifications_issuer"
-                        class="subfield-toggle"
-                        checked />
-                    Issuer
-                    <input name="issuer" placeholder="Platform / Institute"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_certifications_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Jan'26"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_certifications_url"
-                        class="subfield-toggle"
-                        checked />
-                    URL <input name="url" placeholder="https://..."
-                /></label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="certificationsTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_certifications_name"
+						class="subfield-toggle"
+						checked />
+					Name <input name="name" placeholder="Certification name"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_certifications_issuer"
+						class="subfield-toggle"
+						checked />
+					Issuer
+					<input name="issuer" placeholder="Platform / Institute"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_certifications_date"
+						class="subfield-toggle"
+						checked />
+					Date <input name="date" placeholder="Jan'26"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_certifications_url"
+						class="subfield-toggle"
+						checked />
+					URL <input name="url" placeholder="https://..."
+				/></label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="porTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_por_title"
-                        class="subfield-toggle"
-                        checked />
-                    Title
-                    <input name="title" placeholder="Role / position title"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_por_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Start - End"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_por_description"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Description
-                    <textarea
-                        name="description"
-                        rows="2"
-                        placeholder="Responsibilities and impact"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="porTemplate">
+			<div class="item-card">
+				<label
+					><input type="checkbox" name="show_por_title" class="subfield-toggle" checked />
+					Title
+					<input name="title" placeholder="Role / position title"
+				/></label>
+				<label
+					><input type="checkbox" name="show_por_date" class="subfield-toggle" checked />
+					Date <input name="date" placeholder="Start - End"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_por_description"
+						class="subfield-toggle"
+						checked
+					/>
+					Description
+					<textarea
+						name="description"
+						rows="2"
+						placeholder="Responsibilities and impact"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="extraTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_extra_title"
-                        class="subfield-toggle"
-                        checked />
-                    Title
-                    <input name="title" placeholder="Activity / event name"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_extra_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Month/Year or range"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_extra_description"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Description
-                    <textarea
-                        name="description"
-                        rows="2"
-                        placeholder="Description and achievement"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="extraTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_extra_title"
+						class="subfield-toggle"
+						checked />
+					Title
+					<input name="title" placeholder="Activity / event name"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_extra_date"
+						class="subfield-toggle"
+						checked />
+					Date <input name="date" placeholder="Month/Year or range"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_extra_description"
+						class="subfield-toggle"
+						checked
+					/>
+					Description
+					<textarea
+						name="description"
+						rows="2"
+						placeholder="Description and achievement"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="coTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_co_title"
-                        class="subfield-toggle"
-                        checked />
-                    Title
-                    <input
-                        name="title"
-                        placeholder="Competition / activity title"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_co_date"
-                        class="subfield-toggle"
-                        checked />
-                    Date <input name="date" placeholder="Month/Year or range"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_co_description"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Description
-                    <textarea
-                        name="description"
-                        rows="2"
-                        placeholder="Contribution and result"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="coTemplate">
+			<div class="item-card">
+				<label
+					><input type="checkbox" name="show_co_title" class="subfield-toggle" checked />
+					Title
+					<input name="title" placeholder="Competition / activity title"
+				/></label>
+				<label
+					><input type="checkbox" name="show_co_date" class="subfield-toggle" checked />
+					Date <input name="date" placeholder="Month/Year or range"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_co_description"
+						class="subfield-toggle"
+						checked
+					/>
+					Description
+					<textarea
+						name="description"
+						rows="2"
+						placeholder="Contribution and result"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="linksTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_links_platform"
-                        class="subfield-toggle"
-                        checked />
-                    Platform <input name="platform" placeholder="Platform name"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_links_url"
-                        class="subfield-toggle"
-                        checked />
-                    URL
-                    <input name="url" placeholder="https://example.com/profile"
-                /></label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="linksTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_links_platform"
+						class="subfield-toggle"
+						checked />
+					Platform <input name="platform" placeholder="Platform name"
+				/></label>
+				<label
+					><input type="checkbox" name="show_links_url" class="subfield-toggle" checked />
+					URL
+					<input name="url" placeholder="https://example.com/profile"
+				/></label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="techSkillsTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_techskills_category"
-                        class="subfield-toggle"
-                        checked />
-                    Skill Category
-                    <input
-                        name="category"
-                        placeholder="e.g., Languages / Framework / Tools"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_techskills_items"
-                        class="subfield-toggle"
-                        checked
-                    />
-                    Skills
-                    <textarea
-                        name="items"
-                        rows="2"
-                        placeholder="e.g., Python, Java, TypeScript, Go"
-                    ></textarea>
-                </label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="techSkillsTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_techskills_category"
+						class="subfield-toggle"
+						checked />
+					Skill Category
+					<input name="category" placeholder="e.g., Languages / Framework / Tools"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_techskills_items"
+						class="subfield-toggle"
+						checked
+					/>
+					Skills
+					<textarea
+						name="items"
+						rows="2"
+						placeholder="e.g., Python, Java, TypeScript, Go"
+					></textarea>
+				</label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <template id="personalTemplate">
-            <div class="item-card">
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_personal_email"
-                        class="subfield-toggle"
-                        checked />
-                    Email <input name="email" placeholder="name@example.com"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_personal_phone"
-                        class="subfield-toggle"
-                        checked />
-                    Phone <input name="phone" placeholder="+1 555 000 0000"
-                /></label>
-                <label
-                    ><input
-                        type="checkbox"
-                        name="show_personal_location"
-                        class="subfield-toggle"
-                        checked />
-                    Location
-                    <input name="location" placeholder="City, State/Country"
-                /></label>
-                <button type="button" class="remove">Remove</button>
-            </div>
-        </template>
+		<template id="personalTemplate">
+			<div class="item-card">
+				<label
+					><input
+						type="checkbox"
+						name="show_personal_email"
+						class="subfield-toggle"
+						checked />
+					Email <input name="email" placeholder="name@example.com"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_personal_phone"
+						class="subfield-toggle"
+						checked />
+					Phone <input name="phone" placeholder="+1 555 000 0000"
+				/></label>
+				<label
+					><input
+						type="checkbox"
+						name="show_personal_location"
+						class="subfield-toggle"
+						checked />
+					Location
+					<input name="location" placeholder="City, State/Country"
+				/></label>
+				<button type="button" class="remove">Remove</button>
+			</div>
+		</template>
 
-        <!-- pdf.js for client-side PDF text extraction -->
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-            type="module"
-            id="pdfJsModule"
-        ></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs"
-            type="module"
-        ></script>
-        <script>
-            // pdf.js UMD shim — expose pdfjsLib globally for script.js (non-module)
-            (function () {
-                const s = document.createElement("script");
-                s.src =
-                    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js";
-                s.onload = function () {
-                    if (window.pdfjsLib) {
-                        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-                            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js";
-                    }
-                };
-                document.head.appendChild(s);
-            })();
-        </script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-        <script>
-            window.FIREBASE_CONFIG = {
-                apiKey: "AIzaSyBVIOHWJqWF04jJcH-hwNbUl1frEtVTxR0",
-                authDomain: "fast-auris-resume.firebaseapp.com",
-                projectId: "fast-auris-resume",
-                storageBucket: "fast-auris-resume.firebasestorage.app",
-                messagingSenderId: "583067785827",
-                appId: "1:583067785827:web:5d08eb2017268e987b7656",
-                measurementId: "G-RN2DX150X6",
-            };
-        </script>
-        <script src="script.js"></script>
-    </body>
+		<!-- pdf.js for client-side PDF text extraction -->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
+			type="module"
+			id="pdfJsModule"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs"
+			type="module"
+		></script>
+		<script>
+			// pdf.js UMD shim — expose pdfjsLib globally for script.js (non-module)
+			(function () {
+				const s = document.createElement("script");
+				s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js";
+				s.onload = function () {
+					if (window.pdfjsLib) {
+						window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+							"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js";
+					}
+				};
+				document.head.appendChild(s);
+			})();
+		</script>
+		<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+		<script>
+			window.FIREBASE_CONFIG = {
+				apiKey: "AIzaSyBVIOHWJqWF04jJcH-hwNbUl1frEtVTxR0",
+				authDomain: "fast-auris-resume.firebaseapp.com",
+				projectId: "fast-auris-resume",
+				storageBucket: "fast-auris-resume.firebasestorage.app",
+				messagingSenderId: "583067785827",
+				appId: "1:583067785827:web:5d08eb2017268e987b7656",
+				measurementId: "G-RN2DX150X6",
+			};
+		</script>
+		<script src="script.js"></script>
+	</body>
 </html>
